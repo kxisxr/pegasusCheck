@@ -1,5 +1,5 @@
 #!/bin/bash
-#creator: kxisxr
+#Creator: kxisxr
 greenColour="\x1B[0;32m\033[1m"
 endColour="\033[0m\x1B[0m"
 redColour="\x1B[0;31m\033[1m"
@@ -124,9 +124,6 @@ if ! command -v mvt-ios &> /dev/null
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'mvt-ios...'"${endColour}""${endColour}"
     echo -e ' '
-    git clone https://github.com/mvt-project/mvt.git > /dev/null 2>&1
-    cd mvt
-    pip3 install > /dev/null 2>&1
     pip3 install mvt > /dev/null 2>&1
     source ~/.profile
     echo -e ' '
@@ -202,5 +199,25 @@ echo -e ' '
 
 sleep 0.5
 echo -e "${grayColour}"'Extracting the results...'"${endColour}"
-mvt-ios check-backup --output resultsPegasus Decrypted --iocs pegasus.stix2
+mvt-ios check-backup --output resultsPegasus Decrypted --iocs pegasus.stix2 | tee results.txt
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${purpleColour}"'[*] Final results: '"${endColour}"
+
+cat results.txt | grep WARNING > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+echo -e ' '
+echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e "${redColour}"'[*] Malware encountered!!'"${endColour}"
+echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+cat results.txt | grep WARNING
+echo -e ' '
+echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'/resultsPegasus '"${endColour}""${redColour}"'folder.'"${endColour}"
+else
+echo -e "${turquoiseColour}"'No indicators that you have been infected by pegasus are found.'"${endColour}"
+fi
+rm -rf results.txt
+echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
