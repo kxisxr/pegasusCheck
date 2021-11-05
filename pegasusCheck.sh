@@ -1,4 +1,5 @@
-eator: kxisxr
+#!/bin/bash
+#creator: kxisxr
 greenColour="\x1B[0;32m\033[1m"
 endColour="\033[0m\x1B[0m"
 redColour="\x1B[0;31m\033[1m"
