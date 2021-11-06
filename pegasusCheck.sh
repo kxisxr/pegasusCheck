@@ -248,7 +248,6 @@ if ! command -v idevicebackup2 &> /dev/null
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'idevicebackup2...'"${endColour}""${endColour}"
     echo -e ' '
-    #install usbmuxd libimobiledevice6 libimobiledevice-utils ideviceinstaller -y > /dev/null 2>&1
     yes | brew install libimobiledevice > /dev/null 2>&1
     yes | brew install ideviceinstaller > /dev/null 2>&1
     echo -e ' '
@@ -267,7 +266,6 @@ if ! command -v python3 &> /dev/null
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'python3...'"${endColour}""${endColour}"
     echo -e ' '
-    #sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev > /dev/null 2>&1
     yes | brew install python3 > /dev/null 2>&1
     echo -e ' '
     source ~/.profile
