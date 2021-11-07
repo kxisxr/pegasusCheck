@@ -147,9 +147,25 @@ sleep 0.5
 
 echo -e ' '
 
-echo -e "${yellowColour}"'Waiting 15 seconds...'"${endColour}"
+echo -e "${yellowColour}"'Waiting 10 seconds...'"${endColour}"
+sleep 10
 echo -e ' '
 
+device=$(ideviceinfo | grep DeviceName | awk '{print $2" "$3}')
+ideviceinfo > /dev/null 2>&1
+
+if [ $? -eq 0 ]
+then
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e "${turquoiseColour}"''$device' connected!'"${endColour}"
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+else
+echo -e "${redColour}"'Not connected, try again.'"${endColour}"
+exit 0
+fi
+
+
+echo -e ' '
 echo -e -n "${greenColour}"'Name of the backup directory: '"${endColour}"
 read -e dirName
 mkdir $dirName
@@ -330,13 +346,23 @@ sleep 0.5
 
 echo -e ' '
 
-echo -e "${yellowColour}"'Waiting 15 seconds...'"${endColour}"
+echo -e "${yellowColour}"'Waiting 10 seconds...'"${endColour}"
+sleep 10
 echo -e ' '
 
-echo -e -n "${greenColour}"'Name of the backup directory: '"${endColour}"
-read -e dirName
-mkdir $dirName
-sleep 0.5
+device=$(ideviceinfo | grep DeviceName | awk '{print $2" "$3}')
+ideviceinfo > /dev/null 2>&1
+
+if [ $? -eq 0 ]
+then
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e "${turquoiseColour}"''$device' connected!'"${endColour}"
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+else
+echo -e "${redColour}"'Not connected, try again.'"${endColour}"
+exit 0
+fi
+
 echo -e ' '
 
 unset password
