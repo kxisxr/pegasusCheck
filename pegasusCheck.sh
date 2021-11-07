@@ -8,13 +8,16 @@ yellowColour="\x1B[0;33m\033[1m"
 purpleColour="\x1B[0;35m\033[1m"
 turquoiseColour="\x1B[0;36m\033[1m"
 grayColour="\x1B[0;37m\033[1m"
-
-echo -e -n "${greenColour}""
-                             _____ _           _   
- ___ ___ ___ ___ ___ _ _ ___|     | |_ ___ ___| |_ 
-| . | -_| . | .'|_ -| | |_ -|   --|   | -_|  _| '_|    
+echo -e "${grayColour}"'
+Script to validate if your iPhone has been infected by Pegasus spyware.
+It works on Debian systems and on macOS.
+'"${endColour}"
+echo -e "${greenColour}""
+                             _____ _           _
+ ___ ___ ___ ___ ___ _ _ ___|     | |_ ___ ___| |_
+| . | -_| . | .'|_ -| | |_ -|   --|   | -_|  _| '_|
 |  _|___|_  |__,|___|___|___|_____|_|_|___|___|_,_|
-|_|     |___|                                      
+|_|     |___|
 ""${endColour}"
 echo -e -n "${redColour}""
                     /
@@ -52,16 +55,15 @@ then
 
 echo -e -n "${greenColour}"'Installing misc...'"${endColour}"
 echo -e ' '
-sudo apt update -y > /dev/null 2>&1
 sudo apt install wget -y > /dev/null 2>&1
 sudo apt install git -y > /dev/null 2>&1
 sleep 0.5
+
 echo -e ' '
 
 echo -e -n "${greenColour}"'Checking for idevicebackup2...'"${endColour}"
 echo -e ' '
 sleep 0.5
-
 if ! command -v idevicebackup2 &> /dev/null
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'idevicebackup2...'"${endColour}""${endColour}"
@@ -74,12 +76,12 @@ then
 else
 echo -e "${redColour}"'idevicebackup2 exists, skipping...'"${endColour}"
 fi
+
 echo -e ' '
 
 echo -e -n "${greenColour}"'Checking for python3...'"${endColour}"
 echo -e ' '
 sleep 0.5
-
 if ! command -v python3 &> /dev/null
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'python3...'"${endColour}""${endColour}"
@@ -92,12 +94,12 @@ then
 else
 echo -e "${redColour}"'python3 exists, skipping...'"${endColour}"
 fi
+
 echo -e ' '
 
 echo -e -n "${greenColour}"'Checking for pip3...'"${endColour}"
 echo -e ' '
 sleep 0.5
-
 if ! command -v pip3 &> /dev/null
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'pip3...'"${endColour}""${endColour}"
@@ -115,7 +117,6 @@ echo -e ' '
 
 echo -e "${greenColour}"'Checking for mvt-ios...'"${endColour}"
 sleep 0.5
-
 if ! command -v mvt-ios &> /dev/null
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'mvt-ios...'"${endColour}""${endColour}"
@@ -124,21 +125,18 @@ then
     source ~/.profile
     echo -e ' '
     sleep 0.5
-
 else
 echo -e "${redColour}"'mvt-ios exists, skipping...'"${endColour}"
 fi
 
 echo -e ' '
-
 echo -e "${greenColour}"'Downloading the pegasus IOCs...'"${endColour}"
 wget https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/pegasus.stix2 > /dev/null 2>&1
 sleep 0.5
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-
 echo -e ' '
 
-echo -e "${purpleColour}"'[*] Backup the iPhone. '"${endColour}"
+echo -e "${purpleColour}"'[*] Preparing the backup. '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e -n "${greenColour}"'Connect the iPhone to the PC now...'"${endColour}"
@@ -152,12 +150,8 @@ echo -e ' '
 echo -e "${yellowColour}"'Waiting 15 seconds...'"${endColour}"
 echo -e ' '
 
-echo -e "${greenColour}"'Preparing the backup...'"${endColour}"
-sleep 0.5
-echo -e ' '
-
 echo -e -n "${greenColour}"'Name of the backup directory: '"${endColour}"
-read dirName
+read -e dirName
 mkdir $dirName
 sleep 0.5
 echo -e ' '
@@ -174,50 +168,76 @@ do
     password+="$char"
 done
 echo -e '\n'
-
 sleep 0.5
-echo -e "${grayColour}"'Enabling the backup encryption '"${endColour}"
-echo -e ' '
-idevicebackup2 backup -i encryption on $password $dirName
-encryptedBackup=$(ls $dirName)
 
-sleep 0.5  
-echo -e ' '
-echo -e "${grayColour}"'Making the backup (this may take a while...)'"${endColour}"
-echo -e ' '
-idevicebackup2 backup --full $dirName > /dev/null 2>&1
-
-sleep 0.5
-echo -e "${grayColour}"'Decrypting the backup '"${endColour}"
-mvt-ios decrypt-backup -p $password -d Decrypted $dirName/$encryptedBackup > /dev/null 2>&1
-echo -e ' '
-
-sleep 0.5
-echo -e "${grayColour}"'Extracting the results...'"${endColour}"
-mvt-ios check-backup --output resultsPegasus Decrypted --iocs pegasus.stix2 | tee results.txt
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
-echo -e "${purpleColour}"'[*] Final results: '"${endColour}"
+echo -e "${yellowColour}"'[*] Reference time: '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e "${grayColour}"'
+iPhone XR 64 GB
+Upload Speed: 8 MB/s.
+Backup phase: 1 hour and 15 minutes.
+Decrypting phase: 4 hours and 10 minutes.'"${endColour}"
+echo -e ' '
 
-cat results.txt | grep WARNING > /dev/null 2>&1
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Enabling the backup encryption. '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+idevicebackup2 backup -i encryption on $password $dirName
+encryptedBackup=$(ls $dirName)
+sleep 0.5
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Making the backup. '"${endColour}""${redColour}"'[This may take a while...]'"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+idevicebackup2 backup --full $dirName > /dev/null 2>&1
+sleep 0.5
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Decrypting the backup. '"${endColour}""${redColour}"'[This may take a while...]'"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+sleep 0.5
+mvt-ios decrypt-backup -p $password -d Decrypted $dirName/$encryptedBackup > /dev/null 2>&1
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '    
+echo -e "${grayColour}"'[*] Extracting the results. '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+sleep 0.5
+mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '    
+echo -e "${grayColour}"'[*] Final results: '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+cat results.txt | grep -vi redirect | grep WARNING > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
 echo -e ' '
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-echo -e "${redColour}"'[*] Malware encountered!!'"${endColour}"
+echo -e "${redColour}"'[*] Indicators of spyware Pegasus found!'"${endColour}"
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
 cat results.txt | grep WARNING
 echo -e ' '
-echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'/resultsPegasus '"${endColour}""${redColour}"'folder.'"${endColour}"
+echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'/results '"${endColour}""${redColour}"'folder.'"${endColour}"
 else
 echo -e "${turquoiseColour}"'No indicators that you have been infected by pegasus are found.'"${endColour}"
 fi
 rm -rf results.txt
-echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 
-echo -e ' '
+
 #Running on MacOS
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 elif [ $so = "mac" ]
@@ -299,7 +319,7 @@ echo -e "${blueColour}"'--------------------------------------------------------
 
 echo -e ' '
 
-echo -e "${purpleColour}"'[*] Backup the iPhone. '"${endColour}"
+echo -e "${purpleColour}"'[*] Preparing the backup. '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e -n "${greenColour}"'Connect the iPhone to the PC now...'"${endColour}"
@@ -313,12 +333,8 @@ echo -e ' '
 echo -e "${yellowColour}"'Waiting 15 seconds...'"${endColour}"
 echo -e ' '
 
-echo -e "${greenColour}"'Preparing the backup...'"${endColour}"
-sleep 0.5
-echo -e ' '
-
 echo -e -n "${greenColour}"'Name of the backup directory: '"${endColour}"
-read dirName
+read -e dirName
 mkdir $dirName
 sleep 0.5
 echo -e ' '
@@ -335,47 +351,72 @@ do
     password+="$char"
 done
 echo -e '\n'
-
 sleep 0.5
-echo -e "${grayColour}"'Enabling the backup encryption '"${endColour}"
-echo -e ' '
-idevicebackup2 backup -i encryption on $password $dirName
-encryptedBackup=$(ls $dirName)
 
-sleep 0.5
-echo -e ' '
-echo -e "${grayColour}"'Making the backup (this may take a while...)'"${endColour}"
-echo -e ' '
-idevicebackup2 backup --full $dirName > /dev/null 2>&1
-
-sleep 0.5
-echo -e "${grayColour}"'Decrypting the backup '"${endColour}"
-mvt-ios decrypt-backup -p $password -d Decrypted $dirName/$encryptedBackup > /dev/null 2>&1
-echo -e ' '
-
-sleep 0.5
-echo -e "${grayColour}"'Extracting the results...'"${endColour}"
-mvt-ios check-backup --output resultsPegasus Decrypted --iocs pegasus.stix2 | tee results.txt
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
-echo -e "${purpleColour}"'[*] Final results: '"${endColour}"
+echo -e "${yellowColour}"'[*] Reference time: '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e "${grayColour}"'
+iPhone XR 64 GB
+Upload Speed: 8 MB/s.
+Backup phase: 1 hour and 15 minutes.
+Decrypting phase: 4 hours and 10 minutes.'"${endColour}"
+echo -e ' '
 
-cat results.txt | grep WARNING > /dev/null 2>&1
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Enabling the backup encryption. '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+idevicebackup2 backup -i encryption on $password $dirName
+encryptedBackup=$(ls $dirName)
+sleep 0.5
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Making the backup. '"${endColour}""${redColour}"'[This may take a while...]'"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+idevicebackup2 backup --full $dirName > /dev/null 2>&1
+sleep 0.5
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Decrypting the backup. '"${endColour}""${redColour}"'[This may take a while...]'"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+sleep 0.5
+mvt-ios decrypt-backup -p $password -d Decrypted $dirName/$encryptedBackup > /dev/null 2>&1
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '    
+echo -e "${grayColour}"'[*] Extracting the results. '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+sleep 0.5
+mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '    
+echo -e "${grayColour}"'[*] Final results: '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+cat results.txt | grep -vi redirect | grep WARNING > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
 echo -e ' '
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-echo -e "${redColour}"'[*] Malware encountered!!'"${endColour}"
+echo -e "${redColour}"'[*] Indicators of spyware Pegasus found!'"${endColour}"
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
 cat results.txt | grep WARNING
 echo -e ' '
-echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'/resultsPegasus '"${endColour}""${redColour}"'folder.'"${endColour}"
+echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'/results '"${endColour}""${redColour}"'folder.'"${endColour}"
 else
 echo -e "${turquoiseColour}"'No indicators that you have been infected by pegasus are found.'"${endColour}"
 fi
 rm -rf results.txt
-echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 fi
-echo -e ' '
