@@ -1,5 +1,5 @@
 #!/bin/bash
-#Author: kxisxr
+#Creator: kxisxr
 greenColour="\x1B[0;32m\033[1m"
 endColour="\033[0m\x1B[0m"
 redColour="\x1B[0;31m\033[1m"
@@ -213,14 +213,14 @@ echo -e "${grayColour}"'[*] Extracting the results. '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 sleep 0.5
-mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt
+mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt > /dev/null 2>&1
 
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '    
 echo -e "${grayColour}"'[*] Final results: '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-cat results.txt | grep -vi redirect | grep WARNING > /dev/null 2>&1
+cat results.txt | grep WARNING | grep -vi redirect > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
 echo -e ' '
@@ -396,14 +396,14 @@ echo -e "${grayColour}"'[*] Extracting the results. '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 sleep 0.5
-mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt
+mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt > /dev/null 2>&1
 
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '    
 echo -e "${grayColour}"'[*] Final results: '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-cat results.txt | grep -vi redirect | grep WARNING > /dev/null 2>&1
+cat results.txt | grep WARNING | grep -vi redirect > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
 echo -e ' '
