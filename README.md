@@ -3,4 +3,4 @@ Script to easily and quickly determine if you have any indicators of having been
 
 IMPORTANT!!!
 
-It is important that you have plenty of storage since it will make a full backup of your iPhone to be analyzed, that is, if you have a 64gb iPhone try to have at least 70~80gb free in the path where you are going to store the backup.
+It is important that you have plenty of storage since it will make a full backup of your iPhone to be analyzed, that is, if you have a 64gb iPhone try to have at least that 64 GBgb free in the path where you are going to store the backup.
