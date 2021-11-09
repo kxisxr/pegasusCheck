@@ -164,7 +164,6 @@ echo -e "${redColour}"'Not connected, try again.'"${endColour}"
 exit 0
 fi
 
-
 echo -e ' '
 echo -e -n "${greenColour}"'Name of the backup directory: '"${endColour}"
 read -e dirName
@@ -241,17 +240,19 @@ cat results.txt | grep WARNING | grep -vi redirect > /dev/null 2>&1
 if [ $? -eq 0 ]; then
 echo -e ' '
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-echo -e "${redColour}"'[*] Indicators of spyware Pegasus found!'"${endColour}"
+echo -e "${redColour}"'[!] Indicators of spyware Pegasus are found.'"${endColour}"
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
 cat results.txt | grep WARNING
 echo -e ' '
 echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'/results '"${endColour}""${redColour}"'folder.'"${endColour}"
 else
-echo -e "${turquoiseColour}"'No indicators that you have been infected by pegasus are found.'"${endColour}"
+echo -e "${greenColour}"'[+] No indicators that you have been infected by pegasus are found.'"${endColour}"
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 fi
 rm -rf results.txt
-echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Full decrypted backup of your iPhone on: '$(pwd)/Decrypted''"${endColour}"
 
 
 #Running on MacOS
@@ -364,6 +365,11 @@ exit 0
 fi
 
 echo -e ' '
+echo -e -n "${greenColour}"'Name of the backup directory: '"${endColour}"
+read -e dirName
+mkdir $dirName
+sleep 0.5
+echo -e ' '
 
 unset password
 prompt=$(echo -e -n "${yellowColour}"'Password to encrypt the iPhone Backup: '"${endColour}")
@@ -434,15 +440,17 @@ cat results.txt | grep WARNING | grep -vi redirect > /dev/null 2>&1
 if [ $? -eq 0 ]; then
 echo -e ' '
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-echo -e "${redColour}"'[*] Indicators of spyware Pegasus found!'"${endColour}"
+echo -e "${redColour}"'[!] Indicators of spyware Pegasus are found.'"${endColour}"
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
 cat results.txt | grep WARNING
 echo -e ' '
-echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'/results '"${endColour}""${redColour}"'folder.'"${endColour}"
+echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}"
 else
-echo -e "${turquoiseColour}"'No indicators that you have been infected by pegasus are found.'"${endColour}"
+echo -e "${greenColour}"'[+] No indicators that you have been infected by pegasus are found.'"${endColour}"
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 fi
 rm -rf results.txt
-echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '    
+echo -e "${grayColour}"'[*] Full decrypted backup of your iPhone on: '$(pwd)/Decrypted''"${endColour}"
 fi
