@@ -60,7 +60,7 @@ echo -e ' '
 echo -e -n "${greenColour}"'Checking for python3...'"${endColour}"
 echo -e ' '
 sleep 0.5
-if ! command -v python3 &> /dev/null
+if ! command -v python3 > /dev/null 2>&1
 then
     echo -e "${greenColour}"'Installing' "${blueColour}"'python3...'"${endColour}""${endColour}"
     echo -e ' '
@@ -77,12 +77,13 @@ echo -e ' '
 echo -e -n "${greenColour}"'Checking for pip3...'"${endColour}"
 echo -e ' '
 sleep 0.5
-if ! command -v pip3 &> /dev/null
+if ! command -v pip3 > /dev/null 2>&1
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'pip3...'"${endColour}""${endColour}"
     echo -e ' '
     sudo apt-get -y install python3-pip > /dev/null 2>&1
     sudo apt install python3 python3-pip libusb-1.0-0 > /dev/null 2>&1
+    source ~/.profile
     echo -e ' '
     sleep 0.5
 else
@@ -93,11 +94,12 @@ echo -e ' '
 
 echo -e "${greenColour}"'Checking for mvt-ios...'"${endColour}"
 sleep 0.5
-if ! command -v mvt-ios &> /dev/null
+if ! command -v mvt-ios > /dev/null 2>&1
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'mvt-ios...'"${endColour}""${endColour}"
     echo -e ' '
     pip3 install mvt > /dev/null 2>&1
+    source ~/.profile
     echo -e ' '
     sleep 0.5
 else
@@ -121,6 +123,7 @@ echo -e ' '
 echo -e -n "${greenColour}"'Installing misc...'"${endColour}"
 echo -e ' '
 yes | brew install wget git libusb3 > /dev/null 2>&1
+source ~/.profile
 sleep 0.5
 echo -e ' '
 
@@ -128,12 +131,13 @@ echo -e -n "${greenColour}"'Checking for idevicebackup2...'"${endColour}"
 echo -e ' '
 sleep 0.5
 
-if ! command -v idevicebackup2 &> /dev/null
+if ! command -v idevicebackup2 > /dev/null 2>&1
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'idevicebackup2...'"${endColour}""${endColour}"
     echo -e ' '
     yes | brew install libimobiledevice > /dev/null 2>&1
     yes | brew install ideviceinstaller > /dev/null 2>&1
+    source ~/.profile
     echo -e ' '
     sleep 0.5
 else
@@ -145,11 +149,12 @@ echo -e -n "${greenColour}"'Checking for python3...'"${endColour}"
 echo -e ' '
 sleep 0.5  
 
-if ! command -v python3 &> /dev/null
+if ! command -v python3 > /dev/null 2>&1
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'python3...'"${endColour}""${endColour}"
     echo -e ' '
     yes | brew install python3 > /dev/null 2>&1
+    source ~/.profile
     echo -e ' '
     sleep 0.5
 else
@@ -160,11 +165,12 @@ echo -e ' '
 echo -e "${greenColour}"'Checking for mvt-ios...'"${endColour}"
 sleep 0.5
 
-if ! command -v mvt-ios &> /dev/null
+if ! command -v mvt-ios > /dev/null 2>&1
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'mvt-ios...'"${endColour}""${endColour}"
     echo -e ' '
     pip3 install mvt > /dev/null 2>&1
+    source ~/.profile
     echo -e ' '
     sleep 0.5
 
