@@ -203,7 +203,7 @@ sleep 0.5
 echo -e ' '
 
 echo -e "${yellowColour}"'Waiting 10 seconds...'"${endColour}"
-#sleep 10
+sleep 10
 echo -e ' '
 
 device=$(ideviceinfo | grep DeviceName | sed 's/DeviceName:/Connected -/g')
@@ -238,7 +238,6 @@ Backup phase: 1 hour and 15 minutes.
 Decrypting phase: 4 hours and 10 minutes
 Storage ocuppied: 62.9 GB.
 '"${endColour}"
-echo -e ' '
 
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
@@ -301,7 +300,7 @@ echo -e ' '
 echo -e "${grayColour}"'[*] Final results: '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-cat results.txt | grep WARNING | grep -vi redirect > /dev/null 2>&1
+cat results.txt | grep -E "WARNING|CRITICAL" | grep -vi redirect > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
 echo -e ' '
@@ -311,7 +310,7 @@ echo -e "${yellowColour}"'------------------------------------------------------
 echo -e ' '
 cat results.txt | grep WARNING
 echo -e ' '
-echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'/results '"${endColour}""${redColour}"'folder.'"${endColour}"
+echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'results '"${endColour}""${redColour}"'folder.'"${endColour}"
 else
 echo -e "${greenColour}"'[+] No indicators that you have been infected by pegasus are found.'"${endColour}"
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
