@@ -181,7 +181,7 @@ fi
 echo -e ' '
 
 else
-echo -e -n "${greenColour}"' Operating system not supported, exitting... '"${endColour}"
+echo -e -n "${greenColour}"' Operating system not supported, exiting... '"${endColour}"
 exit 0
 fi
 
@@ -247,7 +247,22 @@ echo -e "${blueColour}"'--------------------------------------------------------
 echo -e ' '
 sleep 0.5
 
-echo -e -n "${greenColour}"'[*] Enter a current or new password to encrypt the backup: '"${endColour}"
+echo -e -n "${grayColour}"'[?] Password backup already activated? '"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[1] Yes. '"${endColour}"
+echo -e "${grayColour}"'[2] No. '"${endColour}"
+read -e opt
+sleep 0.5
+echo -e ' '
+
+if [ $opt == '1' ]
+then
+
+idevicebackup2 -i changepw > /dev/null
+
+if [ $? -ne 255 ]
+then
+echo -e -n "${greenColour}"'[*] Please enter the new password again: '"${endColour}"
 while IFS= read -p "$prompt" -r -s -n 1 char
 do
     if [[ $char == $'\0' ]] ; then
@@ -262,11 +277,10 @@ do
         password+="$char"
     fi
 done
-
-idevicebackup2 backup -i encryption on $password $dirName > /dev/null 2>&1
-if [ $? -eq 255 ]
+echo -e ' '
+if [ $? -ne 0 ]
 then
-echo -e -n "${redColour}"'[!] Wrong password.'"${endColour}"
+echo -e -n "${redColour}"'[!] Wrong password!'"${endColour}"
 exit 0
 fi
 
@@ -318,3 +332,83 @@ fi
 rm -rf results.txt
 echo -e ' '
 echo -e "${grayColour}"'[*] Full decrypted backup of your iPhone on: '$(pwd)/Decrypted''"${endColour}"
+
+else
+echo -e -n "${redColour}"'[!] Backup password not enabled!, exiting...'"${endColour}"
+exit 0
+fi
+
+else
+
+echo -e -n "${greenColour}"'[*] Enter a new password to encrypt the backup: '"${endColour}"
+while IFS= read -p "$prompt" -r -s -n 1 char
+do
+    if [[ $char == $'\0' ]] ; then
+        break
+    fi
+
+    if [[ $char == $'\177' ]] ; then
+        prompt=$'\b \b'
+        password="${password%?}"
+    else
+        prompt='*'
+        password+="$char"
+    fi
+done
+
+idevicebackup2 backup -i encryption on $password $dirName > /dev/null 2>&1
+if [ $? -eq 255 ]
+then
+echo -e -n "${redColour}"'[!] Backup password already enabled!'"${endColour}"
+exit 0
+fi
+
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Making the backup. '"${endColour}""${redColour}"'[This may take a while...]'"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+idevicebackup2 backup --full $dirName > /dev/null 2>&1
+sleep 0.5
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${grayColour}"'[*] Decrypting the backup. '"${endColour}""${redColour}"'[This may take a while...]'"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+sleep 0.5
+mvt-ios decrypt-backup -p $password -d Decrypted $dirName/$encryptedBackup > /dev/null 2>&1
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '    
+echo -e "${grayColour}"'[*] Extracting the results. '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+sleep 0.5
+mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt > /dev/null 2>&1
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '    
+echo -e "${grayColour}"'[*] Final results: '"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+cat results.txt | grep -E "WARNING|CRITICAL" | grep -vi redirect > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+echo -e ' '
+echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e "${redColour}"'[!] Indicators of spyware Pegasus are found.'"${endColour}"
+echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+cat results.txt | grep WARNING
+echo -e ' '
+echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'results '"${endColour}""${redColour}"'folder.'"${endColour}"
+else
+echo -e "${greenColour}"'[+] No indicators that you have been infected by pegasus are found.'"${endColour}"
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+fi
+rm -rf results.txt
+echo -e ' '
+echo -e "${grayColour}"'[*] Full decrypted backup of your iPhone on: '$(pwd)/Decrypted''"${endColour}"
+fi
