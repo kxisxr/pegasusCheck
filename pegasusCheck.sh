@@ -247,10 +247,11 @@ echo -e "${blueColour}"'--------------------------------------------------------
 echo -e ' '
 sleep 0.5
 
-echo -e -n "${grayColour}"'[?] Password backup already activated? '"${endColour}"
+
+echo -e "${yellowColour}"'[ 1.- Yes ]'"${endColour}"
+echo -e "${yellowColour}"'[ 2.- No ]'"${endColour}"
 echo -e ' '
-echo -e "${grayColour}"'[1] Yes. '"${endColour}"
-echo -e "${grayColour}"'[2] No. '"${endColour}"
+echo -e -n "${grayColour}"'[?] Password backup already activated? '"${endColour}"
 read -e opt
 sleep 0.5
 echo -e ' '
@@ -260,7 +261,7 @@ then
 
 idevicebackup2 -i changepw > /dev/null
 
-if [ $? -ne 255 ]
+if [ $? -eq 0 ]
 then
 echo -e -n "${greenColour}"'[*] Please enter the new password again: '"${endColour}"
 while IFS= read -p "$prompt" -r -s -n 1 char
@@ -332,13 +333,13 @@ fi
 rm -rf results.txt
 echo -e ' '
 echo -e "${grayColour}"'[*] Full decrypted backup of your iPhone on: '$(pwd)/Decrypted''"${endColour}"
-
 else
-echo -e -n "${redColour}"'[!] Backup password not enabled!, exiting...'"${endColour}"
+echo -e ' '
+echo -e -n "${redColour}"'[!] Wrong password or backup password not enabled!, exiting...'"${endColour}"
 exit 0
 fi
 
-else
+else #AKI LOLOLOL
 
 echo -e -n "${greenColour}"'[*] Enter a new password to encrypt the backup: '"${endColour}"
 while IFS= read -p "$prompt" -r -s -n 1 char
