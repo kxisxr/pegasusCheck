@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 #Author: kxisxr
 greenColour="\x1B[0;32m\033[1m"
 endColour="\033[0m\x1B[0m"
@@ -25,6 +25,13 @@ echo -e "${greenColour}""
 '. '. .=----=..-~  .;'
 ""${endColour}"; echo -e "${greenColour}""by kxisxr
 @pixelbit131 ""${endColour}"
+
+
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo -e -n "${redColour}"'Not running as root \nExiting...'"${endColour}"
+    exit
+fi
+
 echo -e "\n${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}\n"
 echo -e "${purpleColour}"'[*] Installing requirements.'"${endColour}"
 echo -e "\n${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
@@ -33,7 +40,8 @@ echo -e "\n${blueColour}"'------------------------------------------------------
 if [[ "$OSTYPE" == "linux-gnu"* ]]
 then
 
-echo -e -n "${greenColour}"'Installing misc...'"${endColour}\n"
+echo -e -n "${greenColour}"'Updating the system...'"${endColour}\n"
+sudo apt-get update -y > /dev/null 2>&1
 sudo apt install wget -y > /dev/null 2>&1
 sudo apt install git -y > /dev/null 2>&1
 sleep 0.5
@@ -147,7 +155,7 @@ echo -e ' '
 
 echo -e -n "${greenColour}"'Checking for python3...'"${endColour}"
 echo -e ' '
-sleep 0.5  
+sleep 0.5
 
 if ! command -v python3 > /dev/null 2>&1
 then
@@ -303,7 +311,7 @@ sleep 0.5
 mvt-ios decrypt-backup -p $password -d Decrypted $dirName/$encryptedBackup > /dev/null 2>&1
 
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-echo -e ' '    
+echo -e ' '
 echo -e "${grayColour}"'[*] Extracting the results. '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
@@ -311,7 +319,7 @@ sleep 0.5
 mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt > /dev/null 2>&1
 
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-echo -e ' '    
+echo -e ' '
 echo -e "${grayColour}"'[*] Final results: '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
@@ -339,7 +347,7 @@ echo -e -n "${redColour}"'[!] Wrong password or backup password not enabled!, ex
 exit 0
 fi
 
-else 
+else
 
 echo -e -n "${greenColour}"'[*] Enter a new password to encrypt the backup: '"${endColour}"
 while IFS= read -p "$prompt" -r -s -n 1 char
@@ -382,7 +390,7 @@ sleep 0.5
 mvt-ios decrypt-backup -p $password -d Decrypted $dirName/$encryptedBackup > /dev/null 2>&1
 
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-echo -e ' '    
+echo -e ' '
 echo -e "${grayColour}"'[*] Extracting the results. '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
@@ -390,7 +398,7 @@ sleep 0.5
 mvt-ios check-backup --output results Decrypted --iocs pegasus.stix2 | tee results.txt > /dev/null 2>&1
 
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-echo -e ' '    
+echo -e ' '
 echo -e "${grayColour}"'[*] Final results: '"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
