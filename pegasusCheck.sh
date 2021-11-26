@@ -339,7 +339,7 @@ echo -e -n "${redColour}"'[!] Wrong password or backup password not enabled!, ex
 exit 0
 fi
 
-else #AKI LOLOLOL
+else 
 
 echo -e -n "${greenColour}"'[*] Enter a new password to encrypt the backup: '"${endColour}"
 while IFS= read -p "$prompt" -r -s -n 1 char
