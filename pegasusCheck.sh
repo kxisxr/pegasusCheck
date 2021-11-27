@@ -27,17 +27,9 @@ echo -e "${greenColour}""
 ""${endColour}"; echo -e "${greenColour}""by kxisxr
 @pixelbit131 ""${endColour}"
 
-
-#if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-#    echo -e -n "${redColour}"'\nNot running as root. \nExiting...'"${endColour}\n"
-#    echo -e -n "${greenColour}"'\nExample: [+] sudo ./pegasusCheck'"${endColour}\n"
-#    exit
-#fi
-
 echo -e "\n${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}\n"
 echo -e "${purpleColour}"'[*] Installing requirements.'"${endColour}"
 echo -e "\n${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]
 then
@@ -254,7 +246,6 @@ echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
 sleep 0.5
-
 
 echo -e "${yellowColour}"'[ 1.- Yes ]'"${endColour}"
 echo -e "${yellowColour}"'[ 2.- No ]'"${endColour}"
