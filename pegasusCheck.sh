@@ -63,7 +63,6 @@ then
     echo -e ' '
     sudo apt-get install libimobiledevice-utils -y > /dev/null 2>&1
     sudo apt-get install usbmuxd libimobiledevice6 ideviceinstaller -y > /dev/null 2>&1
-    echo -e ' '
     sleep 0.5
 else
 echo -e "${redColour}"'idevicebackup2 exists, skipping...'"${endColour}"
@@ -96,7 +95,6 @@ then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'pip3...'"${endColour}""${endColour}"
     echo -e ' '
     sudo apt-get install python3-pip -y > /dev/null 2>&1
-    echo -e ' '
     sleep 0.5
 else
 echo -e "${redColour}"'pip3 exists, skipping...'"${endColour}"
