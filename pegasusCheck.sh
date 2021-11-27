@@ -28,11 +28,11 @@ echo -e "${greenColour}""
 @pixelbit131 ""${endColour}"
 
 
-if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo -e -n "${redColour}"'\nNot running as root. \nExiting...'"${endColour}\n"
-    echo -e -n "${greenColour}"'\nExample: [+] sudo ./pegasusCheck'"${endColour}\n"
-    exit
-fi
+#if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+#    echo -e -n "${redColour}"'\nNot running as root. \nExiting...'"${endColour}\n"
+#    echo -e -n "${greenColour}"'\nExample: [+] sudo ./pegasusCheck'"${endColour}\n"
+#    exit
+#fi
 
 echo -e "\n${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}\n"
 echo -e "${purpleColour}"'[*] Installing requirements.'"${endColour}"
@@ -121,13 +121,18 @@ then
 echo -e -n "${greenColour}"'Checking for brew...'"${endColour}"
 echo -e ' '
 sleep 0.5
-if ! command -v brew &> /dev/null
+if ! command -v brew &> /dev/null 2>&1
 then
     echo -e "${redColour}"'Brew not installed, exiting...'"${endColour}"
     exit 0
 else
     echo -e "${greenColour}"'Brew installed, skipping...'"${endColour}"
 fi
+echo -e ' '
+
+echo -e -n "${greenColour}"'Updating the system...'"${endColour}"
+echo -e ' '
+yes | brew update > /dev/null 2>&1
 echo -e ' '
 
 echo -e -n "${greenColour}"'Installing misc...'"${endColour}"
@@ -151,7 +156,6 @@ then
 else
 echo -e "${redColour}"'idevicebackup2 exists, skipping...'"${endColour}"
 fi
-echo -e ' '
 
 echo -e -n "${greenColour}"'Checking for python3...'"${endColour}"
 echo -e ' '
@@ -183,8 +187,6 @@ then
 else
 echo -e "${redColour}"'mvt-ios exists, skipping...'"${endColour}"
 fi
-
-echo -e ' '
 
 else
 echo -e -n "${greenColour}"' Operating system not supported, exiting... '"${endColour}"
