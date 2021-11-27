@@ -56,8 +56,8 @@ if ! command -v idevicebackup2 &> /dev/null
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'idevicebackup2...'"${endColour}""${endColour}"
     echo -e ' '
-    sudo apt-get install usbmuxd libimobiledevice6 libimobiledevice-utils ideviceinstaller -y > /dev/null 2>&1
-    sudo apt-get install libimobiledevice6 -y > /dev/null 2>&1
+    sudo apt-get install libimobiledevice-utils -y > /dev/null 2>&1
+    sudo apt-get install usbmuxd libimobiledevice6 ideviceinstaller -y > /dev/null 2>&1
     echo -e ' '
     sleep 0.5
 else
