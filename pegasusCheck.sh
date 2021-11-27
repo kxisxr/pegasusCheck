@@ -94,7 +94,7 @@ if ! command -v pip3 > /dev/null 2>&1
 then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'pip3...'"${endColour}""${endColour}"
     echo -e ' '
-    sudo apt-get -y install python3-pip > /dev/null 2>&1
+    sudo apt-get install python3-pip -y > /dev/null 2>&1
     echo -e ' '
     sleep 0.5
 else
