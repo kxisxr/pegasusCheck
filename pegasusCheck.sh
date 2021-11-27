@@ -43,6 +43,7 @@ then
 
 echo -e -n "${greenColour}"'Updating the system...'"${endColour}\n"
 sudo apt-get update -y > /dev/null 2>&1
+sudo apt-get upgrade python3 -y > /dev/null 2>&1
 sudo apt install wget -y > /dev/null 2>&1
 sudo apt install git -y > /dev/null 2>&1
 sleep 0.5
