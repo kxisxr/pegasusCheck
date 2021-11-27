@@ -1,5 +1,6 @@
 #!/bin/bash -i
 #Author: kxisxr
+
 greenColour="\x1B[0;32m\033[1m"
 endColour="\033[0m\x1B[0m"
 redColour="\x1B[0;31m\033[1m"
@@ -27,10 +28,10 @@ echo -e "${greenColour}""
 @pixelbit131 ""${endColour}"
 
 
-if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo -e -n "${redColour}"'Not running as root \nExiting...'"${endColour}"
-    exit
-fi
+#if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+#    echo -e -n "${redColour}"'\nNot running as root \nExiting...'"${endColour}"
+#    exit
+#fi
 
 echo -e "\n${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}\n"
 echo -e "${purpleColour}"'[*] Installing requirements.'"${endColour}"
@@ -72,7 +73,7 @@ if ! command -v python3 > /dev/null 2>&1
 then
     echo -e "${greenColour}"'Installing' "${blueColour}"'python3...'"${endColour}""${endColour}"
     echo -e ' '
-    sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev > /dev/null 2>&1
+    sudo apt install build-essential zlib1g-dev libncurses5-dev libusb-1.0-0 libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev > /dev/null 2>&1
     sudo apt-get install python3 -y > /dev/null 2>&1
     echo -e ' '
     sleep 0.5
@@ -90,8 +91,6 @@ then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'pip3...'"${endColour}""${endColour}"
     echo -e ' '
     sudo apt-get -y install python3-pip > /dev/null 2>&1
-    sudo apt install python3 python3-pip libusb-1.0-0 > /dev/null 2>&1
-    source ~/.profile
     echo -e ' '
     sleep 0.5
 else
@@ -107,7 +106,6 @@ then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'mvt-ios...'"${endColour}""${endColour}"
     echo -e ' '
     pip3 install mvt > /dev/null 2>&1
-    source ~/.profile
     echo -e ' '
     sleep 0.5
 else
@@ -131,7 +129,6 @@ echo -e ' '
 echo -e -n "${greenColour}"'Installing misc...'"${endColour}"
 echo -e ' '
 yes | brew install wget git libusb3 > /dev/null 2>&1
-source ~/.profile
 sleep 0.5
 echo -e ' '
 
@@ -145,7 +142,6 @@ then
     echo -e ' '
     yes | brew install libimobiledevice > /dev/null 2>&1
     yes | brew install ideviceinstaller > /dev/null 2>&1
-    source ~/.profile
     echo -e ' '
     sleep 0.5
 else
@@ -162,7 +158,6 @@ then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'python3...'"${endColour}""${endColour}"
     echo -e ' '
     yes | brew install python3 > /dev/null 2>&1
-    source ~/.profile
     echo -e ' '
     sleep 0.5
 else
@@ -178,7 +173,6 @@ then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'mvt-ios...'"${endColour}""${endColour}"
     echo -e ' '
     pip3 install mvt > /dev/null 2>&1
-    source ~/.profile
     echo -e ' '
     sleep 0.5
 
