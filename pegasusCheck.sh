@@ -74,7 +74,7 @@ if ! command -v python3 > /dev/null 2>&1
 then
     echo -e "${greenColour}"'Installing' "${blueColour}"'python3...'"${endColour}""${endColour}"
     echo -e ' '
-    sudo apt install build-essential zlib1g-dev libncurses5-dev libusb-1.0-0 libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev > /dev/null 2>&1
+    sudo apt install build-essential zlib1g-dev sqlite3 libncurses5-dev libusb-1.0-0 libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev > /dev/null 2>&1
     sudo apt-get install python3 -y > /dev/null 2>&1
     echo -e ' '
     sleep 0.5
