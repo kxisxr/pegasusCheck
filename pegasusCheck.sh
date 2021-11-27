@@ -29,7 +29,8 @@ echo -e "${greenColour}""
 
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo -e -n "${redColour}"'\nNot running as root \nExiting...'"${endColour}"
+    echo -e -n "${redColour}"'\nNot running as root. \nExiting...'"${endColour}\n"
+    echo -e -n "${greenColour}"'\nExample: [+] sudo ./pegasusCheck'"${endColour}\n"
     exit
 fi
 
