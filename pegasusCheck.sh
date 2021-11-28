@@ -281,7 +281,7 @@ sleep 0.5
 echo -e "${greenColour}"'[ 1.- Yes ]'"${endColour}"
 echo -e "${yellowColour}"'[ 2.- No  ]'"${endColour}"
 echo -e ' '
-echo -e -n "${grayColour}"'[?] iPhone's Backup password already activated? '"${endColour}"
+echo -e -n "${grayColour}"'[?] iPhone Backup password already activated? '"${endColour}"
 read -e opt
 sleep 0.5
 echo -e ' '
