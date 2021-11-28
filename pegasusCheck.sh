@@ -172,9 +172,7 @@ then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'mvt-ios...'"${endColour}""${endColour}"
     echo -e ' '
     pip3 install mvt > /dev/null 2>&1
-    echo -e ' '
     sleep 0.5
-
 else
 echo -e "${redColour}"'mvt-ios exists, skipping...'"${endColour}"
 fi
