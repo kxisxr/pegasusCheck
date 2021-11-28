@@ -201,7 +201,7 @@ fi
 
 echo -e ' '
 
-if [ $version -lt 400 ]
+if [ $version -lt 360 ]
 then
 echo -e "${redColour}"'[!] You need a python version greater than 3.6+'"${endColour}" 
 exit 0
@@ -210,7 +210,14 @@ fi
 echo -e ' '
 
 echo -e "${greenColour}"'Downloading the pegasus IOCs...'"${endColour}"
+
+if [ -f "pegasus.stix2" ]
+then
+    echo -e "${redColour}"'Pegasus indicators already downloaded, skipping...'"${endColour}"
+else
 wget https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/pegasus.stix2 > /dev/null 2>&1
+fi
+
 sleep 0.5
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
@@ -274,7 +281,7 @@ sleep 0.5
 echo -e "${greenColour}"'[ 1.- Yes ]'"${endColour}"
 echo -e "${yellowColour}"'[ 2.- No  ]'"${endColour}"
 echo -e ' '
-echo -e -n "${grayColour}"'[?] Password backup already activated? '"${endColour}"
+echo -e -n "${grayColour}"'[?] iPhone's Backup password already activated? '"${endColour}"
 read -e opt
 sleep 0.5
 echo -e ' '
