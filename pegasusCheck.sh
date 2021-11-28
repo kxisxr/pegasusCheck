@@ -100,7 +100,7 @@ then
     echo -e -n "${greenColour}"'Installing' "${blueColour}"'mvt-ios...'"${endColour}""${endColour}"
     echo -e ' '
     sudo apt install python3 python3-pip libusb-1.0-0 sqlite3 -y > /dev/null 2>&1
-    pip3 install mvt > /dev/null 2>&1
+    sudo pip3 install mvt > /dev/null 2>&1
     echo -e ' '
     sleep 0.5
 else
