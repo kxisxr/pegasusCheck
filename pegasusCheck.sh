@@ -191,12 +191,25 @@ echo -e ' '
 echo -e "${purpleColour}"'[*] Checking the installation...'"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-if ! command -v pip3 python3 mvt-ios idevicebackup2 > /dev/null 2>&1
+
+if ! command -v pip3 > /dev/null
 then
-echo -e "${redColour}"'[!] Missing programs, exiting...'"${endColour}"
-exit 0
+    echo -e "${redColour}"'pip3 could not be found. '"${endColour}"
+    exit 0
+elif ! command -v python3 > /dev/null
+then
+    echo -e "${redColour}"'python3 could not be found. '"${endColour}"
+    exit 0
+elif ! command -v idevicebackup2 > /dev/null
+then 
+    echo -e "${redColour}"'idevicebackup2 could not be found.'"${endColour}"
+    exit 0
+elif ! command -v mvt-ios > /dev/null
+then
+    echo -e "${redColour}"'mvt-ios could not be found.'"${endColour}"
+    exit 0
 else
-echo -e "${greenColour}"'[+] All programs installed.'"${endColour}"
+    echo -e "${greenColour}"'[+] All programs installed.'"${endColour}"
 fi
 
 echo -e ' '
