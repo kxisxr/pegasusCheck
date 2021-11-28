@@ -114,10 +114,10 @@ echo -e ' '
 sleep 0.5
 if ! command -v brew &> /dev/null 2>&1
 then
-    echo -e "${redColour}"'Brew not installed, exiting...'"${endColour}"
+    echo -e "${greenColour}"'Please install brew first, exiting...'"${endColour}"
     exit 0
 else
-    echo -e "${greenColour}"'Brew installed, skipping...'"${endColour}"
+    echo -e "${redColour}"'Brew installed, skipping...'"${endColour}"
 fi
 echo -e ' '
 
@@ -147,7 +147,7 @@ then
 else
 echo -e "${redColour}"'idevicebackup2 exists, skipping...'"${endColour}"
 fi
-
+echo -e ' '
 echo -e -n "${greenColour}"'Checking for python3...'"${endColour}"
 echo -e ' '
 sleep 0.5
@@ -193,7 +193,7 @@ echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 if ! command -v pip3 python3 mvt-ios idevicebackup2 > /dev/null 2>&1
 then
-echo -e "${redColour}"'[!] Missing programs, exitting...'"${endColour}"
+echo -e "${redColour}"'[!] Missing programs, exiting...'"${endColour}"
 exit 0
 else
 echo -e "${greenColour}"'[+] All programs installed.'"${endColour}"
@@ -201,7 +201,7 @@ fi
 
 echo -e ' '
 
-if [ $version -lt 360 ]
+if [ $version -lt 400 ]
 then
 echo -e "${redColour}"'[!] You need a python version greater than 3.6+'"${endColour}" 
 exit 0
@@ -271,8 +271,8 @@ echo -e "${blueColour}"'--------------------------------------------------------
 echo -e ' '
 sleep 0.5
 
-echo -e "${yellowColour}"'[ 1.- Yes ]'"${endColour}"
-echo -e "${yellowColour}"'[ 2.- No ]'"${endColour}"
+echo -e "${greenColour}"'[ 1.- Yes ]'"${endColour}"
+echo -e "${yellowColour}"'[ 2.- No  ]'"${endColour}"
 echo -e ' '
 echo -e -n "${grayColour}"'[?] Password backup already activated? '"${endColour}"
 read -e opt
