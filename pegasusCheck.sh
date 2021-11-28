@@ -36,7 +36,6 @@ then
 
 echo -e -n "${greenColour}"'Updating the system...'"${endColour}\n"
 sudo apt-get update -y > /dev/null 2>&1
-sudo apt-get upgrade python3 -y > /dev/null 2>&1
 sleep 0.5
 echo -e ' '
 
@@ -184,6 +183,31 @@ else
 echo -e -n "${greenColour}"' Operating system not supported, exiting... '"${endColour}"
 exit 0
 fi
+
+version=$(python3 --version | awk '{print $2}' | tr -d ".")
+
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+echo -e ' '
+echo -e "${purpleColour}"'[*] Checking the installation...'"${endColour}"
+echo -e ' '
+echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
+if ! command -v pip3 python3 mvt-ios idevicebackup2 > /dev/null 2>&1
+then
+echo -e "${redColour}"'[!] Missing programs, exitting...'"${endColour}"
+exit 0
+else
+echo -e "${greenColour}"'[+] All programs installed.'"${endColour}"
+fi
+
+echo -e ' '
+
+if [ $version -lt 360 ]
+then
+echo -e "${redColour}"'[!] You need a python version greater than 3.6+'"${endColour}" 
+exit 0
+fi
+
+echo -e ' '
 
 echo -e "${greenColour}"'Downloading the pegasus IOCs...'"${endColour}"
 wget https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/pegasus.stix2 > /dev/null 2>&1
