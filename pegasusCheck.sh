@@ -191,7 +191,7 @@ echo -e ' '
 echo -e "${purpleColour}"'[*] Checking the installation...'"${endColour}"
 echo -e ' '
 echo -e "${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
-
+sleep 0.5
 if ! command -v pip3 > /dev/null
 then
     echo -e "${redColour}"'pip3 could not be found. '"${endColour}"
@@ -221,7 +221,7 @@ exit 0
 fi
 
 echo -e ' '
-
+sleep 0.5
 echo -e "${greenColour}"'Downloading the pegasus IOCs...'"${endColour}"
 
 if [ -f "pegasus.stix2" ]
