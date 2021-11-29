@@ -364,7 +364,7 @@ echo -e "${yellowColour}"'------------------------------------------------------
 echo -e "${redColour}"'[!] Indicators of spyware Pegasus are found.'"${endColour}"
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
-cat results.txt | grep WARNING
+cat results.txt | grep -E "WARNING|CRITICAL"
 echo -e ' '
 echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'results '"${endColour}""${redColour}"'folder.'"${endColour}"
 else
@@ -443,7 +443,7 @@ echo -e "${yellowColour}"'------------------------------------------------------
 echo -e "${redColour}"'[!] Indicators of spyware Pegasus are found.'"${endColour}"
 echo -e "${yellowColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}"
 echo -e ' '
-cat results.txt | grep WARNING
+cat results.txt | grep -E "WARNING|CRITICAL"
 echo -e ' '
 echo -e "${redColour}"'Check the indicators above, as well as the .json files with'"${endColour}" "${purpleColour}"'_detected'"${endColour}" "${redColour}"'ending in the '"${endColour}""${yellowColour}"'results '"${endColour}""${redColour}"'folder.'"${endColour}"
 else
