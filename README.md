@@ -4,3 +4,5 @@ Script that uses the forensic mvt suite and idevicebackup2 to easily and quickly
 IMPORTANT!!!
 
 It is important that you have plenty of storage since it will make a full backup of your iPhone to be analyzed, if you have a 64GB iPhone try to have at least that 64 GB free in the path where you are going to store the backup.
+
+Tutorial: https://www.youtube.com/watch?v=HfQCT1CG7d4
