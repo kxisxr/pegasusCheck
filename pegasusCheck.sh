@@ -25,7 +25,7 @@ echo -e "${greenColour}""
 :' (   )         )::,
 '. '. .=----=..-~  .;'
 ""${endColour}"; echo -e "${greenColour}""by kxisxr
-@pixelbit131 ""${endColour}"
+@_kxisxr_ ""${endColour}"
 
 echo -e "\n${blueColour}"'--------------------------------------------------------------------------------------------------------'"${endColour}\n"
 echo -e "${purpleColour}"'[*] Installing requirements.'"${endColour}"
